@@ -20,6 +20,11 @@ public class BotchSubject<S extends Subject<S, T>, T> extends Subject<S, T> impl
 	}
 
 	@Override
+	public final void failed(String verb) {
+		fail(verb);
+	}
+
+	@Override
 	public final void failed(String verb, Object other) {
 		fail(verb, other);
 	}

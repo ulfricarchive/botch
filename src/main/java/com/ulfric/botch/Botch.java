@@ -58,15 +58,18 @@ public abstract class Botch<T extends JavaPlugin> {
 
 	private void setupPluginDescription() throws Exception {
 		Path pluginDescription = findPluginDescription();
+		PluginDescriptionFile description;
 		if (pluginDescription != null) {
-			PluginDescriptionFile description;
 			try (Reader reader = Files.newBufferedReader(pluginDescription)) {
 				description = new PluginDescriptionFile(reader);
 			}
-			Field field = FieldUtils.getField(plugin.getClass(), "description", true);
-			field.setAccessible(true);
-			field.set(plugin, description);
+		} else {
+			description = new PluginDescriptionFile(null, null, null);
 		}
+
+		Field field = FieldUtils.getField(plugin.getClass(), "description", true);
+		field.setAccessible(true);
+		field.set(plugin, description);
 	}
 
 	private Path findPluginDescription() {

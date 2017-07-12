@@ -21,6 +21,22 @@ public interface NamedAssertions<T> extends ObjectAssertions<T> {
 		}
 	}
 
+	default void isNamed() {
+		isNotNull();
+
+		if (getName() == null) {
+			failed("is named");
+		}
+	}
+
+	default void isNotNamed() {
+		isNotNull();
+
+		if (getName() != null) {
+			failedWithRawMessage("Not true that %s (%s) is not named", actualValueAsString(), getName());
+		}
+	}
+
 	String getName();
 
 }

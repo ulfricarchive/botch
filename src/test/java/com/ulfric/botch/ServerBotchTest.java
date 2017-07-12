@@ -7,15 +7,11 @@ import org.junit.runner.RunWith;
 import com.google.common.truth.Truth;
 
 @RunWith(JUnitPlatform.class)
-class BotchTest extends Botch<BotchPlugin> {
-
-	public BotchTest() {
-		super(BotchPlugin.class);
-	}
+class ServerBotchTest extends ServerBotch {
 
 	@Test
-	void testEnsurePluginIsCreated() {
-		Truth.assertThat(plugin).isNotNull();
+	void testServerPluginIsCreated() {
+		Truth.assertThat(server).isNotNull();
 	}
 
 }
