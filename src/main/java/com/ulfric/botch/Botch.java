@@ -41,14 +41,19 @@ public abstract class Botch<T extends JavaPlugin> {
 	private void setupServer() throws Exception {
 		server = Mockito.mock(Server.class);
 		Mockito.when(server.getLogger()).thenReturn(Mockito.mock(Logger.class));
-		Field field = Bukkit.class.getDeclaredField("server");
-		field.setAccessible(true);
-		field.set(null, server);
+		setServer(Bukkit.class, null);
 	}
 
 	private void setupPlugin() throws Exception {
 		plugin = Mockito.mock(pluginType);
+		setServer(JavaPlugin.class, plugin);
 		setupPluginDescription();
+	}
+
+	private void setServer(Class<?> location, Object holder) throws Exception {
+		Field field = location.getDeclaredField("server");
+		field.setAccessible(true);
+		field.set(holder, server);
 	}
 
 	private void setupPluginDescription() throws Exception {
