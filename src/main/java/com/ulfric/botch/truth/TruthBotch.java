@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.common.truth.Truth;
 
+import com.ulfric.veracity.SubjectFactories;
+
 public class TruthBotch {
 
 	public static JavaPluginSubject assertThat(JavaPlugin plugin) {
