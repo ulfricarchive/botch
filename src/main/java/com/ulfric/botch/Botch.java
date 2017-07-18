@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RunWith(JUnitPlatform.class)
@@ -64,7 +65,7 @@ public abstract class Botch<T extends JavaPlugin> {
 				description = new PluginDescriptionFile(reader);
 			}
 		} else {
-			description = new PluginDescriptionFile(null, null, null);
+			description = new PluginDescriptionFile(UUID.randomUUID().toString(), null, null);
 		}
 
 		Field field = FieldUtils.getField(plugin.getClass(), "description", true);
