@@ -8,7 +8,9 @@ import org.mockito.Mockito;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 
@@ -27,6 +29,8 @@ public abstract class Botch<T extends JavaPlugin> {
 	private final Class<T> pluginType;
 	protected T plugin;
 	protected Server server;
+	protected BukkitScheduler scheduler;
+	private PluginManager pluginManager;
 
 	public Botch(Class<T> pluginType) {
 		Objects.requireNonNull(pluginType, "pluginType");
@@ -37,6 +41,8 @@ public abstract class Botch<T extends JavaPlugin> {
 	final void setupBotch() throws Exception {
 		setupServer();
 		setupPlugin();
+		setupScheduler();
+		setupPluginManager();
 	}
 
 	private void setupServer() throws Exception {
@@ -49,6 +55,16 @@ public abstract class Botch<T extends JavaPlugin> {
 		plugin = Mockito.mock(pluginType);
 		setServer(JavaPlugin.class, plugin);
 		setupPluginDescription();
+	}
+
+	private void setupScheduler() {
+		scheduler = Mockito.mock(BukkitScheduler.class);
+		Mockito.when(server.getScheduler()).thenReturn(scheduler);
+	}
+
+	private void setupPluginManager() {
+		pluginManager = Mockito.mock(PluginManager.class);
+		Mockito.when(server.getPluginManager()).thenReturn(pluginManager);
 	}
 
 	private void setServer(Class<?> location, Object holder) throws Exception {
