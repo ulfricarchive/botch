@@ -1,8 +1,6 @@
 package com.ulfric.botch;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import org.bukkit.Bukkit;
@@ -23,7 +21,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-@RunWith(JUnitPlatform.class)
 public abstract class Botch<T extends JavaPlugin> {
 
 	private final Class<T> pluginType;
